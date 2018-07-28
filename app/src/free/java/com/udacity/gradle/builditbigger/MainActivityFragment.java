@@ -2,7 +2,6 @@ package com.udacity.gradle.builditbigger;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,18 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.network.EndpointsAsyncTask;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements EndpointsAsyncTask.EndPointListener {
+
+    @BindView(R.id.adView)
+    AdView mAdView;
 
     public MainActivityFragment() {
     }
@@ -23,9 +29,9 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, rootView);
 
-        AdView mAdView = (AdView) root.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
@@ -34,9 +40,21 @@ public class MainActivityFragment extends Fragment {
                 .build();
         mAdView.loadAd(adRequest);
 
-        new EndpointsAsyncTask().execute(new Pair<>(getContext(), "Manfred"));
-
-
-        return root;
+        return rootView;
     }
+
+
+    @OnClick(R.id.btn_tell_joke)
+    public void btnTellJokeClick(View view) {
+        new EndpointsAsyncTask(this).execute();
+    }
+
+    //region EndpointsAsyncTask.EndPointListener
+    @Override
+    public void onPostExecute(String jokeString) {
+
+    }
+
+    //endregion
+
 }
