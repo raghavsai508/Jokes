@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivityFragment mainActivityFragment = new MainActivityFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.main_activity_fragment_container, mainActivityFragment)
+                .add(R.id.main_activity_fragment_container, mainActivityFragment, MainActivityFragment.class.getName())
                 .commit();
     }
 
@@ -43,10 +43,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-//    public void tellJoke(View view) {
-//        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
-//    }
-
 
 }

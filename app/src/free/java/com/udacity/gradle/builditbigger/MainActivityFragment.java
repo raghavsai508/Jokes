@@ -68,6 +68,7 @@ public class MainActivityFragment extends Fragment implements EndpointsAsyncTask
             public void onAdFailedToLoad(int errorCode) {
                 // Code to be executed when an ad request fails.
                 Log.d("TAG", "The interstitial add error."+errorCode);
+                mInterstitialAd.loadAd(getAdRequest());
             }
 
             @Override

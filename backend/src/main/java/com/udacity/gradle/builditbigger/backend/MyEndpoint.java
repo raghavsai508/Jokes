@@ -30,7 +30,7 @@ public class MyEndpoint {
     @ApiMethod(name = "getJokes")
     public MyBean getJokes() {
         MyBean response = new MyBean();
-        response.setData("Joke");
+        response.setData("Why did the Clydesdale give the pony a glass of water? Because he was a little horse.");
 
         return response;
     }
