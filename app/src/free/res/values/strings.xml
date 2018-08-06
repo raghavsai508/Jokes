@@ -3,4 +3,5 @@
     <string name="greeting">Welcome to the free version!</string>
     <string name="app_name">Flavor Specific Activity - Free</string>
     <string name="toast_text">Upgrade to the paid version to get a joke!</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

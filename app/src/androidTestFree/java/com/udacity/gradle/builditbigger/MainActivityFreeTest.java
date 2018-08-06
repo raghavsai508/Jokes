@@ -22,7 +22,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class MainActivityFreeTest {
 
     private IdlingResource mIdlingResource;
-    private IdlingResource mAdIdlingResource;
 
     @Rule
     public IntentsTestRule<MainActivity> intentsTestRule = new IntentsTestRule<>(MainActivity.class);
@@ -31,19 +30,13 @@ public class MainActivityFreeTest {
     public void registerIdlingResource() {
         MainActivityFragment mainActivityFragment = (MainActivityFragment) intentsTestRule.getActivity().getSupportFragmentManager().findFragmentByTag(MainActivityFragment.class.getName());
         mIdlingResource = mainActivityFragment.getIdlingResource();
-        mAdIdlingResource = mainActivityFragment.getAdIdlingResource();
         IdlingRegistry.getInstance().register(mIdlingResource);
-        IdlingRegistry.getInstance().register(mAdIdlingResource);
     }
 
     @After
     public void unregisterIdlingResource() {
         if (mIdlingResource != null) {
             IdlingRegistry.getInstance().unregister(mIdlingResource);
-        }
-
-        if (mAdIdlingResource != null) {
-            IdlingRegistry.getInstance().unregister(mAdIdlingResource);
         }
     }
 
@@ -53,12 +46,14 @@ public class MainActivityFreeTest {
     }
 
     @Test
-    public void  testInterstitialAd() {
-        onView(withId(R.id.btn_tell_joke)).perform(click());
-//        onView(allOf(withContentDescription("Interstitial close button"), isDisplayed())).perform(click());
-//
-        intended(hasComponent(JokeActivity.class.getName()));
+    public void testInterstitialAdDisplay() {
+        onView(withId(R.id.adView)).check(matches(isDisplayed()));
+    }
 
+    @Test
+    public void testJokeActivity() {
+        onView(withId(R.id.btn_tell_joke)).perform(click());
+        intended(hasComponent(JokeActivity.class.getName()));
     }
 
 }

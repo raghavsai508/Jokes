@@ -61,8 +61,8 @@ public class MainActivityPaidTest {
     @Test
     public void checkCurrentJokeExist() {
         onView(withId(R.id.btn_tell_joke)).perform(click());
-        onView(withText(JokeLibrary.getJoke())).check(matches(isDisplayed()));
-
+        JokeLibrary jokeLibrary = new JokeLibrary();
+        onView(withText(jokeLibrary.getJoke())).check(matches(isDisplayed()));
     }
 
 }
